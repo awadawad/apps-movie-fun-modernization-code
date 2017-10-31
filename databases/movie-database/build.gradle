@@ -27,7 +27,7 @@ task openTunnel {
             tunnelProcess = "cf ssh -N -L 63306:${getMysqlHost("movie-service")}:3306 movie-service".execute()
         }
 
-        sleep 5_000L
+        sleep 15_000L
     }
 }
 
