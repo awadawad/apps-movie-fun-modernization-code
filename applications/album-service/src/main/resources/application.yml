@@ -9,7 +9,8 @@ spring:
 
   datasource:
     url: jdbc:mysql://localhost:3306/albums?useSSL=false
-    username: root
+    username: testuser
+    password: testuser
 
 logging.level:
   root: WARN
