@@ -1,11 +1,13 @@
 package org.superbiz.moviefun;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+@Ignore
 public class SmokeTest {
 
     @Test

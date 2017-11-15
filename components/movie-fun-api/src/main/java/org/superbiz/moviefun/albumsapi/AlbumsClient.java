@@ -1,6 +1,9 @@
 package org.superbiz.moviefun.albumsapi;
 
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.client.RestOperations;
 
 import java.util.List;
@@ -28,7 +31,9 @@ public class AlbumsClient {
     public List<AlbumInfo> getAlbums() {
         ParameterizedTypeReference<List<AlbumInfo>> albumListType = new ParameterizedTypeReference<List<AlbumInfo>>() {
         };
-
-        return restOperations.exchange(albumsUrl, GET, null, albumListType).getBody();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> request = new HttpEntity<>(headers);
+        return restOperations.exchange(albumsUrl, GET, request, albumListType).getBody();
     }
 }

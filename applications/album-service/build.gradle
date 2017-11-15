@@ -2,6 +2,17 @@ apply from: "../../java.gradle"
 
 apply plugin: "org.springframework.boot"
 apply plugin: "io.spring.dependency-management"
+apply plugin: 'spring-cloud-contract'
+apply plugin: 'maven-publish'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${springCloudContractDependencies}"
+    }
+}
 
 group = "org.superbiz"
 version = "1.1.0-SNAPSHOT"
@@ -11,6 +22,7 @@ dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
         mavenBom "io.pivotal.spring.cloud:spring-cloud-services-dependencies:$springCloudServicesVersion"
+        mavenBom "org.springframework.cloud:spring-cloud-contract-dependencies:${springCloudContractDependencies}"
     }
 }
 
@@ -25,6 +37,13 @@ dependencies {
     compile "io.pivotal.spring.cloud:spring-cloud-services-starter-service-registry"
 
     compile "io.pivotal.spring.cloud:cloudfoundry-certificate-truster:$certTrusterVersion"
+    testCompile 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
 
     compile "mysql:mysql-connector-java:$mysqlVersion"
+}
+
+// In this section you define all Spring Cloud Contract Verifier Gradle Plugin properties
+contracts {
+    baseClassForTests = 'org.superbiz.moviefun.albums.VerificationTest'
+    // fully qualified name to a class that will be the base class for your generated test classes
 }

@@ -1,5 +1,7 @@
 package org.superbiz.moviefun.albums;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,14 +16,15 @@ public class AlbumsController {
         this.albumsRepository = albumsRepository;
     }
 
-    @PostMapping
-    public void addAlbum(@RequestBody Album album) {
+    @PostMapping(consumes = "application/json")
+    public ResponseEntity addAlbum(@RequestBody Album album) {
         albumsRepository.addAlbum(album);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @GetMapping
-    public List<Album> index() {
-        return albumsRepository.getAlbums();
+    public ResponseEntity<List<Album>> index() {
+        return new ResponseEntity<>(albumsRepository.getAlbums(), HttpStatus.OK);
     }
 
     @GetMapping("/{albumId}")

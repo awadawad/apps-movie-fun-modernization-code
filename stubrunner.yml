@@ -1,0 +1,4 @@
+stubrunner:
+  workOffline: true
+  ids:
+  - org.superbiz:album-service:+:stubs:6565
